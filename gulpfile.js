@@ -6,8 +6,13 @@ var gulp = require('gulp'), // Подключаем Gulp
     concatCss = require('gulp-concat-css'), // соединяет все сss в один
     cleanCSS = require('gulp-clean-css'), // минифицирует css
     rename = require("gulp-rename"), // переименование итогового файла css
-    uncss = require('gulp-uncss'); // удалить неиспользуемые css
+    uncss = require('gulp-uncss'), // удалить неиспользуемые css
+    uglyfly = require('gulp-uglyfly'), // минимизация js
+    imagemin = require('gulp-imagemin'), // сжатие картинок
+    responsive = require('gulp-responsive'); // jpg под изображение екрана
 
+
+// работа с css
 gulp.task('gconcatcss', function () {
     return gulp.src('app/css/**/*.css')
         .pipe(concatCss("assets/bundle.css"))
@@ -21,12 +26,48 @@ gulp.task('gconcatcss', function () {
         .pipe(gulp.dest('app/assets/css'));
 });
 
-
-gulp.task('scriptsjs', function() {// конкатинируем все js в один
-  return gulp.src('app/js/*.js')
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('app/assets/js'));
+// работа сjs
+gulp.task('scriptsjs', function () { // конкатинируем все js в один
+    return gulp.src('app/js/*.js')
+        .pipe(concat('all.min.js'))
+        .pipe(uglyfly())
+        .pipe(gulp.dest('app/assets/js'));
 });
+
+// сжатие картинок
+gulp.task('imgtask', () =>
+    gulp.src('app/img/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('app/assets/img'))
+);
+
+//  картинки под экран
+gulp.task('default', function () {
+    return gulp.src('src/*.{png,jpg}')
+        .pipe(responsive({
+            'background-*.jpg': {
+                width: 700,
+                quality: 50
+            },
+            'cover.png': {
+                width: '50%',
+                // convert to jpeg format
+                format: 'jpeg',
+                rename: 'cover.jpg'
+            },
+            // produce multiple images from one source
+            'logo.png': [
+                {
+                    width: 200
+        }, {
+                    width: 200 * 2,
+                    rename: 'logo@2x.png'
+        }
+      ]
+        }))
+        .pipe(gulp.dest('dist'));
+});
+
 
 
 
