@@ -14,7 +14,16 @@
     "gulp-sass": "^4.0.2"
   },
   "dependencies": {
+    "gulp-clean-css": "^4.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-uglifyjs": "^0.6.2"
+    "gulp-concat-css": "^3.1.0",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-jshint": "^2.1.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-responsive": "^2.11.0",
+    "gulp-uglify": "^3.0.1",
+    "gulp-uglifyjs": "^0.6.2",
+    "gulp-uglyfly": "^1.4.2",
+    "gulp-uncss": "^1.0.6"
   }
 }
