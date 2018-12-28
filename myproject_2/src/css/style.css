@@ -1,0 +1,13 @@
+* {
+	background-color: beige;
+	color: darkolivegreen;
+}
+
+div.row {
+	display: flex;
+}
+
+a {
+	color: #fff;
+}
+
