@@ -1,0 +1,446 @@
+/*
+ * This document contains the Example Snippets for CSS With LESS and SASS, organized
+ * by each chapter.
+ * 
+ * Copy and paste the code from this file into the various lesson files for each chapter.
+ *
+ */
+
+=====================================================
+** CHAPTER 1: Introduction to LESS and SASS
+=====================================================
+
+Chapter 1: First LESS Example
+---------------
+        <link rel="stylesheet/less" type="text/css" href="styles.less">
+        <script src="../less-1.3.0.min.js"></script>
+
+@baseColor: #535353;
+
+header {
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: lighten(@baseColor, 50%);
+  border: 1px solid darken(@baseColor, 10%);
+  color: @baseColor;
+}
+
+Chapter 1: First SASS Example
+---------------
+
+//$baseColor: rgb(50,100,175);
+$baseColor: #535353;
+
+header {
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: lighten($baseColor, 50%);
+  border: 1px solid darken($baseColor, 10%);
+  color: $baseColor;
+}
+
+
+=====================================================
+** CHAPTER 2: Basic LESS 
+=====================================================
+
+Chapter 2: Variables
+---------------
+
+@myColor1: navy;                            // named color value
+@myColor2: #000080;                         // hex color value
+@myStringVar: " with an appended string";   // string variable 
+@myFontSize: 24px;                          // numeric value
+@thinBorder: 4px solid @myColor1;           // multi-value variable
+@paddingVar: 15px 15px 15px 35px;           // multi-value variable
+
+h1, h2 {
+    color: @myColor1;
+}
+
+#mypara {
+    font-size: @myFontSize;
+    border: @thinBorder;
+    padding: @paddingVar;
+}
+
+#mypara:after {
+    content: @myStringVar;
+}
+
+
+Chapter 2: LESS Mixins
+---------------
+.commonTraits {
+    border-radius: 10px;
+    border: 1px solid green;
+    padding: 10px;
+}
+
+header {
+    color: #274D87;
+    .commonTraits;
+}
+
+footer {
+    color: #3264AF;
+    .commonTraits;
+}
+
+
+Chapter 2: Nested Styles
+---------------
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    
+    p {
+        font-family:Times;
+    }
+    p#mypara {
+        font-family: "Courier New";
+    }
+}
+
+#mypara {
+    color: #404040;
+    border: 1px solid #404040;
+    padding: 10px;
+    
+    &:hover {
+        color: red;
+    }
+}
+
+
+Chapter 2: Operations
+---------------
+
+@color: #f00;
+@basepadding: 10px;
+@basethickness: 1px;
+
+#mypara {
+    color: @color;
+    border: @basethickness solid black;
+    padding: @basepadding;
+}
+
+
+=====================================================
+** CHAPTER 3: Advanced LESS 
+=====================================================
+
+Chapter 3: Parameterized Mixins 
+---------------
+
+// using regular arguments
+.border-radius(@radius: 5px) {
+    -mox-border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -ms-border-radius: @radius;
+    border-radius: @radius;
+}
+
+// using named arguments with defaults
+.customBorder(@color: black, @width: 1px) {
+    border: @width solid @color;
+}
+
+// using the @arguments parameter
+.box-shadow(@x: 0, @y: 0, @blur:1px, @color: #000) {
+    -webkit-box-shadow: @arguments;
+    -mox-box-shadow: @arguments;
+    -ms-box-shadow: @arguments;
+    box-shadow: @arguments;
+}
+
+#mypara {
+    .border-radius;
+    .customBorder(blue, 5px);
+    .box-shadow(10px,10px,10px, gray);
+    padding: 10px;
+}
+
+
+Chapter 3: Mixins with Pattern Matching
+---------------
+
+.alert(warning) {
+    @color: goldenrod;
+    color: @color;
+    border-color: darken(@color, 10%);
+}
+.alert(error) {
+    @color: red;
+    color: lighten(@color, 10%);
+    border-color: darken(@color, 20%);
+}
+.alert(other, @color) {
+    color: lighten(@color, 10%);
+    border-color: darken(@color, 20%);
+}
+.alert(@_) {
+    display: block;
+    border-width: 2px;
+    border-style:solid;
+    padding: 10px;
+}
+
+@type: error;
+#mypara {
+    .alert(@type);
+}
+
+Chapter 3: Guarded Mixins 
+---------------
+.text3d(@color) when (lightness(@color) =< 50%) {
+    color: @color;
+    font-size: 32pt;
+    border: 2px solid gray;
+    text-shadow: 1px 1px 0px darken(@color, 5%),
+                2px 2px 0px darken(@color, 10%),
+                3px 3px 0px darken(@color, 15%),
+                4px 4px 0px darken(@color, 20%),
+                4px 4px 3px #000;
+}
+.text3d(@color) when (lightness(@color) > 50%) {
+    color: @color;
+    font-size: 32pt;
+    border: 2px dashed gray;
+    text-shadow: 1px 1px 0px lighten(@color, 5%),
+                2px 2px 0px lighten(@color, 10%),
+                3px 3px 0px lighten(@color, 15%),
+                4px 4px 0px lighten(@color, 20%),
+                4px 4px 3px #ccc;
+}
+.text3d(@_){
+    font-size: 32pt;
+    padding: 5pt;
+} 
+ 
+h1{
+    .text3d(#666);
+}
+
+
+Chapter 3: LESS Functions
+---------------
+.border-radius(@radius: 5px) {
+    -mox-border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -ms-border-radius: @radius;
+    border-radius: @radius;
+}
+
+// Color functions
+@color: navy;
+h1 {
+    color: @color;
+}
+h2 { 
+    color: lighten(@color, 20%);
+}
+h3 {
+    color: lighten(@color, 30%);
+}
+h4 {
+    color: lighten(@color, 40%);
+}
+
+#mypara {
+    .border-radius;
+    border-color: hsl(hue(@color), 45%, 60%);
+    border-width: 2px;
+    border-style:solid;
+    padding: 10px;
+}
+
+
+
+Chapter 3: Importing Files
+---------------
+
+// import the definitions used in this file
+@import "import_me.less";
+
+
+=====================================================
+** CHAPTER 4: SASS 
+=====================================================
+
+Chapter 4: Variables
+---------------
+$myColor1: navy;                            // named color value
+$myColor2: #000080;                         // hex color value
+$myStringVar: " with an appended string";   // string variable 
+$myFontSize: 18px;                          // numeric value
+$thinBorder: 1px solid $myColor1;           // multi-value variable
+$paddingVar: 15px 15px 15px 15px;           // multi-value variable
+
+h1, h2 {
+    color: $myColor1;
+}
+
+#mypara {
+    font-size: $myFontSize;
+    border: $thinBorder;
+    padding: $paddingVar;
+}
+
+#mypara:after {
+    content: $myStringVar;
+}
+
+
+Chapter 4: Nested Styles
+---------------
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    
+    p {
+        font-family:Times;
+    }
+    p#mypara {
+        font-family: "Courier New";
+    }
+}
+
+#mypara {
+    color: #404040;
+    border: 1px solid #404040;
+    padding: 10px;
+    
+    &:hover {
+        color: red;
+    }
+}
+
+
+Chapter 4: SASS Mixins
+---------------
+@mixin commonTraits {
+    border-radius: 10px;
+    border: 1px solid green;
+    padding: 10px;
+}
+
+header {
+    color: #274D87;
+    @include commonTraits;
+}
+
+footer {
+    color: #3264AF;
+    @include commonTraits;
+}
+
+
+Chapter 4: Operations
+---------------
+
+$myColor: #f00;
+$basepadding: 10px;
+$basethickness: 4px;
+
+#mypara {
+    color: $myColor;
+    border: $basethickness solid $myColor;
+    padding: $basepadding;
+}
+
+$gender: boy;
+$myColor: if($gender=="boy", #00f, #f00);
+
+=====================================================
+** CHAPTER 5: Advanced SASS 
+=====================================================
+
+Chapter 5: Mixins with Arguments
+---------------
+// using regular arguments
+@mixin customBorder ($width, $color, $style) {
+    border: {
+        width: $width;
+        color: $color;
+        style: $style;
+    }
+}
+
+// using named arguments with defaults
+@mixin customBorder2 ($width: 1px, $color: black, $style: solid) {
+    border: {
+        width: $width;
+        color: $color;
+        style: $style;
+    }
+}
+
+#mypara {
+    @include customBorder(3px, blue, dotted);
+}
+
+Chapter 5: Output Formatting
+---------------
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    
+    p {
+        font-family:Times;
+    }
+    p#mypara {
+        font-family: "Courier New";
+    }
+}
+
+#mypara {
+    color: #404040;
+    border: 1px solid #404040;
+    padding: 10px;
+    
+    &:hover {
+        color: red;
+    }
+}
+
+Chapter 5: Functions
+---------------
+
+@mixin border-radius($radius: 5px) {
+    -mox-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+// Color functions
+$color: navy;
+h1 {
+    color: $color;
+    background-color: grayscale(invert($color));
+}
+h2 { 
+    color: lighten($color, 20%);
+}
+h3 {
+    color: lighten($color, 30%);
+}
+h4 {
+    color: lighten($color, 40%);
+}
+
+#mypara {
+    @include border-radius;
+    border-color: hsl(hue($color), 45%, 60%);
+    border-width: 2px;
+    border-style:solid;
+    padding: 10px;
+}
+
+
+
+Chapter 5: Importing External Files
+---------------
+
+// import the SASS definitions used in this style sheet
+@import "import_me.scss";
+

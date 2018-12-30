@@ -1,0 +1,21 @@
+/* 
+ * LESS Variables are defined with an @ character
+ * and can have different kinds of data types: color, string, boolean, multi-value
+ */
+
+// import the definitions used in this file
+@import "import_me.less";
+
+h1, h2 {
+    color: @myColor1;
+}
+
+#mypara {
+    font-size: @myFontSize;
+    border: @thinBorder;
+    padding: @paddingVar;
+}
+
+#mypara:after {
+    content: @myStringVar;
+}
