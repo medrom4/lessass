@@ -1,5 +1,35 @@
 /*
  * Using LESS pattern matching and guarded mixins
  * 
- */ 
+ */
 
+.text3d(@color) when (lightness(@color)=< 50%) {
+    color: @color;
+    font-size: 32pt;
+    border: 2px solid gray;
+    text-shadow: 1px 1px 0px darken(@color, 5%),
+    2px 2px 0px darken(@color, 10%),
+    3px 3px 0px darken(@color, 15%),
+    4px 4px 0px darken(@color, 20%),
+    4px 4px 3px #000;
+}
+
+.text3d(@color) when (lightness(@color) > 50%) {
+    color: @color;
+    font-size: 32pt;
+    border: 2px dashed gray;
+    text-shadow: 1px 1px 0px lighten(@color, 5%),
+    2px 2px 0px lighten(@color, 10%),
+    3px 3px 0px lighten(@color, 15%),
+    4px 4px 0px lighten(@color, 20%),
+    4px 4px 3px #ccc;
+}
+
+.text3d(@_) {
+    font-size: 32pt;
+    padding: 5pt;
+}
+
+h1 {
+    .text3d(#ccc);
+}

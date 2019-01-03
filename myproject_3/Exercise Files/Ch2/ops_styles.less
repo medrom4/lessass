@@ -4,3 +4,12 @@
  * Operators let you perform mathematical functions inside of CSS styles
  */
 
+@color: #f00;
+@basepadding: 10px;
+@basethickness: 1px;
+
+#mypara {
+    color: @color + #00f;
+    border: (@basethickness*6/2) solid black;
+    padding: @basepadding @basepadding + 20;
+}

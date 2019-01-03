@@ -1,6 +1,37 @@
 /*
  * Using LESS functions
  * 
- */ 
+ */
 
+.border-radius(@radius: 5px) {
+    -mox-border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -ms-border-radius: @radius;
+    border-radius: @radius;
+}
 
+// Color functions
+@color: #333;
+h1 {
+    color: @color;
+}
+
+h2 {
+    color: lighten(@color, 20%);
+}
+
+h3 {
+    color: lighten(@color, 30%);
+}
+
+h4 {
+    color: lighten(@color, 40%);
+}
+
+#mypara {
+    .border-radius;
+    border-color: hsl(hue(@color), 45%, 90%);
+    border-width: 2px;
+    border-style: solid;
+    padding: 10px;
+}

@@ -1,4 +1,32 @@
 /*
  * Using LESS mixins with arguments
- */ 
+ */
 
+// using regular arguments
+.border-radius(@radius: 5px) {
+    -mox-border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -ms-border-radius: @radius;
+    border-radius: @radius;
+}
+
+// using named arguments with defaults
+.customBorder(@color: black, @width: 1px) {
+    border: @width solid @color;
+}
+
+// using the @arguments parameter
+.box-shadow(@x: 0, @y: 0, @blur: 1px, @color: #000) {
+    -webkit-box-shadow: @arguments;
+    -mox-box-shadow: @arguments;
+    -ms-box-shadow: @arguments;
+    box-shadow: @arguments;
+}
+
+#mypara {
+    .border-radius(10px);
+    .customBorder(blue, 5px);
+    .customBorder(blue, 5px);
+    .box-shadow(10px, 10px, 10px, gray);
+    padding: 10px;
+}

@@ -1,5 +1,40 @@
 /*
  * Using LESS pattern matching with mixins
  * 
- */ 
+ */
 
+.alert(warning) {
+    @color: goldenrod;
+    color: @color;
+    border-color: darken(@color, 10%);
+}
+
+.alert(error) {
+    @color: red;
+    color: lighten(@color, 10%);
+    border-color: darken(@color, 20%);
+}
+
+.alert(other, @color) {
+    color: lighten(@color, 10%);
+    border-color: darken(@color, 20%);
+}
+
+.alert(@_) {
+    display: block;
+    border-width: 2px;
+    border-style: solid;
+    padding: 10px;
+}
+
+.alert(@_, @_) {
+    display: block;
+    border-width: 2px;
+    border-style: solid;
+    padding: 10px;
+}
+
+@type: error;
+#mypara {
+    .alert(error);
+}
