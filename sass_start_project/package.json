@@ -1,0 +1,24 @@
+{
+  "name": "my_project",
+  "version": "1.0.0",
+  "description": "my_project_01",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "medrom4",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.11.0"
+  },
+  "dependencies": {
+    "del": "^3.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-livereload": "^4.0.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-watch": "^5.0.1"
+  }
+}
