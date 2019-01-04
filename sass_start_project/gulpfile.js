@@ -3,9 +3,11 @@ var
 	livereload = require("gulp-livereload"),
 	sass = require("gulp-sass"),
 	watch = require("gulp-watch"),
-	cleanCSS = require("gulp-clean-css"),
-	autoprefixer = require("gulp-autoprefixer"),
-	rename = require("gulp-rename");
+	cleanCSS = require("gulp-clean-css"), // сжимаем css
+	autoprefixer = require("gulp-autoprefixer"), // автопрефиксы css
+	rename = require("gulp-rename"),// Переименовываем css
+	concat = require('gulp-concat'), // Собираем их в кучу в новом файле libs.min.js
+	uglify = require('gulp-uglify'); // Сжимаем JS файл ConEmu
 
 //******************************
 //********следим за html**********
@@ -33,9 +35,23 @@ gulp.task("reload-css", function () {
 		.pipe(livereload());
 });
 //******************************
+//********следим за js**********
+gulp.task('reload-js', function () {
+	return gulp.src([
+		'src/libs/jquery/dist/jquery.min.js',
+		'src/libs/magnific-popup/dist/jquery.magnific-popup.min.js',
+		'src/js/*.js'
+	])
+		.pipe(concat('libs.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('dist/js'))
+		.pipe(livereload());
+});
+//******************************
 //******************************
 gulp.task("default", function () {
 	livereload.listen();
 	gulp.watch("./src/css/*.sass", gulp.series("reload-css"));
 	gulp.watch("./**/*.html", gulp.series("reload-html"));
+	gulp.watch("./src/js/*.js", gulp.series("reload-js"));
 });
