@@ -1,3 +1,3 @@
 $(function() {
-	console.log('Халлёё');
+	console.log('Хаывывллёё');
 });
