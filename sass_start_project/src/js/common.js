@@ -1,3 +1,3 @@
 $(function() {
-	console.log('Хаывывллёё');
+	console.log('Приветтт, медвед!');
 });
